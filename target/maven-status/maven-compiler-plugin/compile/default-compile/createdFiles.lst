@@ -1,0 +1,14 @@
+com\example\droolsserver\model\DiagnosticoTemprano.class
+com\example\droolsserver\model\Persona.class
+com\example\droolsserver\service\DroolsService.class
+com\example\droolsserver\model\GenerarOrden.class
+com\example\droolsserver\controller\PorfiriaInfoController.class
+com\example\droolsserver\model\InformarWeb.class
+com\example\droolsserver\config\DroolsConfig.class
+com\example\droolsserver\controller\PorfiriaController.class
+com\example\droolsserver\model\Producto.class
+com\example\droolsserver\DroolsServerApplication.class
+com\example\droolsserver\model\CuadroClinico.class
+com\example\droolsserver\model\Recommendation.class
+com\example\droolsserver\model\Patient.class
+com\example\droolsserver\model\QuestionnaireResponse.class

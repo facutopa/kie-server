@@ -1,0 +1,35 @@
+package com.example.droolsserver.config;
+
+import org.kie.api.KieServices;
+import org.kie.api.builder.KieBuilder;
+import org.kie.api.builder.KieFileSystem;
+import org.kie.api.builder.KieModule;
+import org.kie.api.runtime.KieContainer;
+import org.kie.api.runtime.KieSession;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class DroolsConfig {
+
+    @Bean
+    public KieContainer kieContainer() {
+        KieServices kieServices = KieServices.Factory.get();
+        KieFileSystem kieFileSystem = kieServices.newKieFileSystem();
+        
+        // Cargar reglas desde el classpath
+        kieFileSystem.write("src/main/resources/rules/reglas.drl", 
+            kieServices.getResources().newClassPathResource("rules/reglas.drl"));
+        
+        KieBuilder kieBuilder = kieServices.newKieBuilder(kieFileSystem);
+        kieBuilder.buildAll();
+        
+        KieModule kieModule = kieBuilder.getKieModule();
+        return kieServices.newKieContainer(kieModule.getReleaseId());
+    }
+
+    @Bean
+    public KieSession kieSession() {
+        return kieContainer().newKieSession();
+    }
+}
