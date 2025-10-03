@@ -23,6 +23,8 @@ public class PorfiriaController {
     public ResponseEntity<Map<String, Object>> evaluarPaciente(
             @RequestBody Map<String, Object> request) {
         try {
+            System.out.println("=== EVALUACIÓN DE PACIENTE ===");
+            System.out.println("Request recibido: " + request);
             // Extraer datos del request
             Patient patient = new Patient();
             patient.setId((String) request.get("patientId"));
@@ -51,22 +53,29 @@ public class PorfiriaController {
             }
 
             // Procesar con Drools
+            System.out.println("Procesando con Drools...");
             List<Object> resultados = droolsService.obtenerResultadosCompletos(patient, responses);
+            System.out.println("Resultados obtenidos: " + resultados.size());
 
             // Organizar resultados
             Map<String, Object> response = new HashMap<>();
             for (Object resultado : resultados) {
                 if (resultado instanceof CuadroClinico) {
                     response.put("cuadroClinico", resultado);
+                    System.out.println("Cuadro clínico encontrado: " + resultado);
                 } else if (resultado instanceof DiagnosticoTemprano) {
                     response.put("diagnostico", resultado);
+                    System.out.println("Diagnóstico encontrado: " + resultado);
                 } else if (resultado instanceof GenerarOrden) {
                     response.put("ordenes", resultado);
+                    System.out.println("Órdenes encontradas: " + resultado);
                 } else if (resultado instanceof InformarWeb) {
                     response.put("medicamentos", resultado);
+                    System.out.println("Medicamentos encontrados: " + resultado);
                 }
             }
 
+            System.out.println("Respuesta final: " + response);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             e.printStackTrace();
@@ -181,12 +190,13 @@ public class PorfiriaController {
         return ResponseEntity.ok("Sistema de Diagnóstico de Porfiria está funcionando correctamente");
     }
 
-    @PostMapping("/test")
-    public ResponseEntity<Map<String, Object>> testEndpoint(@RequestBody Map<String, Object> request) {
+    @PostMapping("/test-simple")
+    public ResponseEntity<Map<String, Object>> testSimple(@RequestBody Map<String, Object> request) {
         Map<String, Object> response = new HashMap<>();
-        response.put("message", "Endpoint funcionando correctamente");
+        response.put("message", "Endpoint funcionando");
         response.put("receivedData", request);
         response.put("timestamp", new java.util.Date());
         return ResponseEntity.ok(response);
     }
+
 }

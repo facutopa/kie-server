@@ -43,23 +43,33 @@ public class DroolsService {
     }
 
     public List<Object> obtenerResultadosCompletos(Patient patient, List<QuestionnaireResponse> responses) {
+        System.out.println("=== INICIANDO PROCESAMIENTO DROOLS ===");
         KieSession session = kieSession;
         List<Object> resultados = new ArrayList<>();
         
         try {
+            System.out.println("Paciente: " + patient);
+            System.out.println("Respuestas: " + responses.size());
+            
             // Insertar el paciente
             session.insert(patient);
+            System.out.println("Paciente insertado en la sesión");
             
             // Insertar las respuestas del cuestionario
             for (QuestionnaireResponse response : responses) {
                 session.insert(response);
+                System.out.println("Respuesta insertada: " + response.getQuestionId() + " = " + response.getAnswer());
             }
             
             // Ejecutar las reglas
-            session.fireAllRules();
+            System.out.println("Ejecutando reglas...");
+            int rulesFired = session.fireAllRules();
+            System.out.println("Reglas ejecutadas: " + rulesFired);
             
             // Recopilar todos los resultados
+            System.out.println("Objetos en la sesión: " + session.getObjects().size());
             session.getObjects().forEach(obj -> {
+                System.out.println("Objeto encontrado: " + obj.getClass().getSimpleName() + " = " + obj);
                 if (obj instanceof CuadroClinico || 
                     obj instanceof DiagnosticoTemprano || 
                     obj instanceof GenerarOrden || 
@@ -73,6 +83,7 @@ public class DroolsService {
             session.dispose();
         }
         
+        System.out.println("Resultados finales: " + resultados.size());
         return resultados;
     }
 

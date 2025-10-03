@@ -45,8 +45,8 @@ Este proyecto implementa un sistema de diagnóstico de Porfiria usando Spring Bo
    ```
 
 4. **Verificar que el servidor esté funcionando**
-   - Abrir navegador en: http://localhost:8080/api/drools/health
-   - Debería mostrar: "Drools Server está funcionando correctamente"
+   - Abrir navegador en: http://localhost:8080/api/porfiria/health
+   - Debería mostrar: "Sistema de Diagnóstico de Porfiria está funcionando correctamente"
 
 ## API Endpoints
 

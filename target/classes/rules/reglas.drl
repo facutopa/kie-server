@@ -5,82 +5,20 @@
  * con sistema de puntuación por categorías clínicas.
  */
 
-package com.myspace.porfiria;
+package com.example.droolsserver.rules;
 dialect "java"
 
 import java.util.List;
 import java.util.ArrayList;
+import com.example.droolsserver.model.Patient;
+import com.example.droolsserver.model.QuestionnaireResponse;
+import com.example.droolsserver.model.CuadroClinico;
+import com.example.droolsserver.model.DiagnosticoTemprano;
+import com.example.droolsserver.model.GenerarOrden;
+import com.example.droolsserver.model.InformarWeb;
+import com.example.droolsserver.model.Recommendation;
 
-// Declaración de tipos de hechos
-declare Patient
-    id: String
-    firstName: String
-    lastName: String
-    dni: String
-    age: int
-    gender: String
-    familyHistory: boolean
-    medications: List  // Cambiado de List<String>
-    alcoholConsumption: boolean
-    fastingStatus: boolean
-end
-
-declare QuestionnaireResponse
-    questionId: String
-    answer: String
-    patientId: String
-    timestamp: java.util.Date
-end
-
-// Cuadro clínico con puntuaciones por categoría
-declare CuadroClinico
-    patientId: String
-    
-    // Puntuaciones por categorías de síntomas
-    sintomasCutanea: double
-    sintomasAguda: double
-    anamnesis: double
-    
-    // Puntuación total
-    puntuacionTotal: double
-    
-    // Tipo de Porfiria sugerido
-    tipoPorfiria: String // "AGUDA", "CUTANEA", "MIXTA", "NO_APLICA"
-    
-    // Nivel de riesgo
-    nivelRiesgo: String // "ALTO", "MEDIO", "BAJO"
-end
-
-declare DiagnosticoTemprano
-    patientId: String
-    sintomaCutanea: String // "Presenta", "No_Presenta", null
-    sintomaAguda: String   // "Presenta", "No_Presenta", null
-end
-
-declare GenerarOrden
-    patientId: String
-    estudios: List  // Cambiado de List<String>
-end
-
-declare InformarWeb
-    patientId: String
-    medicamentosContraproducentes: List  // Cambiado de List<String>
-end
-
-declare Recommendation
-    testType: String
-    confidence: String
-    message: String
-    score: double
-    criticalSymptoms: int
-    reasoning: List  // Cambiado de List<String>
-    riskFactors: List  // Cambiado de List<String>
-    // Nuevos campos para el sistema
-    estudiosRecomendados: List  // Cambiado de List<String>
-    medicamentosContraproducentes: List  // Cambiado de List<String>
-    tipoPorfiria: String
-    cuadroClinico: CuadroClinico
-end
+// Los tipos están definidos en las clases Java, no necesitamos declararlos aquí
 
 // ========================================
 // REGLAS DE PUNTUACIÓN - SÍNTOMAS CUTÁNEOS
@@ -503,7 +441,7 @@ rule "REG-030 - Color Orina Oscura/Ámbar"
     when
         $patient: Patient()
         $cuadro: CuadroClinico(patientId == $patient.id)
-        $response: QuestionnaireResponse(questionId == "colorOrina", answer == "Oscura")
+        $response: QuestionnaireResponse(questionId == "colorOrina", answer == "SI")
     then
         System.out.println("REG-030: Color orina oscura/ámbar detectado");
         double nuevosPuntos = $cuadro.getAnamnesis() + 5;

@@ -1,0 +1,49 @@
+{
+  "patientId": "P002",
+  "firstName": "Carlos",
+  "lastName": "Ruiz",
+  "dni": "87654321",
+  "age": 42,
+  "gender": "M",
+  "familyHistory": false,
+  "alcoholConsumption": true,
+  "fastingStatus": true,
+  "responses": [
+    {
+      "questionId": "parestesias",
+      "answer": "SI",
+      "patientId": "P002"
+    },
+    {
+      "questionId": "paresia",
+      "answer": "SI",
+      "patientId": "P002"
+    },
+    {
+      "questionId": "dolorAbdominalLumbar",
+      "answer": "SI",
+      "patientId": "P002"
+    },
+    {
+      "questionId": "trastornosAbdominales",
+      "answer": "SI",
+      "patientId": "P002"
+    },
+    {
+      "questionId": "estres",
+      "answer": "SI",
+      "patientId": "P002"
+    },
+    {
+      "questionId": "colorOrina",
+      "answer": "Oscura",
+      "patientId": "P002"
+    },
+    {
+      "questionId": "familiares",
+      "answer": "SI",
+      "patientId": "P002"
+    }
+  ]
+}
+

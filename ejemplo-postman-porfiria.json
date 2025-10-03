@@ -23,6 +23,17 @@
       "questionId": "fotosensibilidad",
       "answer": "SI",
       "patientId": "P001"
+    },
+    {
+      "questionId": "hiperpigmentacion",
+      "answer": "SI",
+      "patientId": "P001"
+    },
+    {
+      "questionId": "ampollas",
+      "answer": "SI",
+      "patientId": "P001"
     }
   ]
 }
+
