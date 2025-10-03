@@ -32,7 +32,7 @@ rule "REG-001 - Máculas"
     then
         CuadroClinico cuadro = new CuadroClinico();
 		cuadro.setPatientId($patient.getId());
-		cuadro.setSintomasCutanea(1.0);  // Usando double explícito
+		cuadro.setSintomasCutanea(2.0);  // Usando double explícito
 		insert(cuadro);
 end
 
@@ -43,10 +43,8 @@ rule "REG-002 - Fragilidad Cutánea"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "fragilidadCutanea", answer == "SI")
     then
-        System.out.println("REG-002: Fragilidad cutánea detectada");
         double nuevosPuntos = $cuadro.getSintomasCutanea() + 5;
         $cuadro.setSintomasCutanea(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 5);
         update($cuadro);
 end
 
@@ -57,10 +55,8 @@ rule "REG-003 - Hipertricosis"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "hipertricosis", answer == "SI")
     then
-        System.out.println("REG-003: Hipertricosis detectada");
         double nuevosPuntos = $cuadro.getSintomasCutanea() + 4;
         $cuadro.setSintomasCutanea(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 4);
         update($cuadro);
 end
 
@@ -71,10 +67,8 @@ rule "REG-004 - Nódulos"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "nodulos", answer == "SI")
     then
-        System.out.println("REG-004: Nódulos detectados");
         double nuevosPuntos = $cuadro.getSintomasCutanea() + 1;
         $cuadro.setSintomasCutanea(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 1);
         update($cuadro);
 end
 
@@ -85,10 +79,8 @@ rule "REG-005 - Lesiones Oculares"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "lesionesOculares", answer == "SI")
     then
-        System.out.println("REG-005: Lesiones oculares detectadas");
         double nuevosPuntos = $cuadro.getSintomasCutanea() + 1;
         $cuadro.setSintomasCutanea(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 1);
         update($cuadro);
 end
 
@@ -99,10 +91,8 @@ rule "REG-006 - Costras"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "costras", answer == "SI")
     then
-        System.out.println("REG-006: Costras detectadas");
         double nuevosPuntos = $cuadro.getSintomasCutanea() + 3;
         $cuadro.setSintomasCutanea(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 3);
         update($cuadro);
 end
 
@@ -113,10 +103,8 @@ rule "REG-007 - Quistes de Milia"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "quistesMilia", answer == "SI")
     then
-        System.out.println("REG-007: Quistes de milia detectados");
         double nuevosPuntos = $cuadro.getSintomasCutanea() + 3;
         $cuadro.setSintomasCutanea(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 3);
         update($cuadro);
 end
 
@@ -127,10 +115,8 @@ rule "REG-008 - Hiperpigmentación"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "hiperpigmentacion", answer == "SI")
     then
-        System.out.println("REG-008: Hiperpigmentación detectada");
         double nuevosPuntos = $cuadro.getSintomasCutanea() + 5;
         $cuadro.setSintomasCutanea(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 5);
         update($cuadro);
 end
 
@@ -141,10 +127,8 @@ rule "REG-009 - Ampollas"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "ampollas", answer == "SI")
     then
-        System.out.println("REG-009: Ampollas detectadas");
         double nuevosPuntos = $cuadro.getSintomasCutanea() + 5;
         $cuadro.setSintomasCutanea(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 5);
         update($cuadro);
 end
 
@@ -155,10 +139,8 @@ rule "REG-010 - Fotosensibilidad"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "fotosensibilidad", answer == "SI")
     then
-        System.out.println("REG-010: Fotosensibilidad detectada");
         double nuevosPuntos = $cuadro.getSintomasCutanea() + 5;
         $cuadro.setSintomasCutanea(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 5);
         update($cuadro);
 end
 
@@ -169,10 +151,8 @@ rule "REG-011 - Pruritos"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "pruritos", answer == "SI")
     then
-        System.out.println("REG-011: Pruritos detectados");
         double nuevosPuntos = $cuadro.getSintomasCutanea() + 2;
         $cuadro.setSintomasCutanea(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 2);
         update($cuadro);
 end
 
@@ -183,10 +163,8 @@ rule "REG-012 - Tricosis"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "tricosis", answer == "SI")
     then
-        System.out.println("REG-012: Tricosis detectada");
         double nuevosPuntos = $cuadro.getSintomasCutanea() + 3;
         $cuadro.setSintomasCutanea(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 3);
         update($cuadro);
 end
 
@@ -201,10 +179,8 @@ rule "REG-013 - Trastornos Psiquiátricos"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "trastornosPsiquiatricos", answer == "SI")
     then
-        System.out.println("REG-013: Trastornos psiquiátricos detectados");
         double nuevosPuntos = $cuadro.getSintomasAguda() + 4;
         $cuadro.setSintomasAguda(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 4);
         update($cuadro);
 end
 
@@ -215,10 +191,8 @@ rule "REG-014 - Parestesias"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "parestesias", answer == "SI")
     then
-        System.out.println("REG-014: Parestesias detectadas");
         double nuevosPuntos = $cuadro.getSintomasAguda() + 5;
         $cuadro.setSintomasAguda(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 5);
         update($cuadro);
 end
 
@@ -229,10 +203,8 @@ rule "REG-015 - Cefaleas"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "cefaleas", answer == "SI")
     then
-        System.out.println("REG-015: Cefaleas detectadas");
         double nuevosPuntos = $cuadro.getSintomasAguda() + 3;
         $cuadro.setSintomasAguda(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 3);
         update($cuadro);
 end
 
@@ -243,10 +215,8 @@ rule "REG-016 - Paresia"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "paresia", answer == "SI")
     then
-        System.out.println("REG-016: Paresia detectada");
         double nuevosPuntos = $cuadro.getSintomasAguda() + 5;
         $cuadro.setSintomasAguda(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 5);
         update($cuadro);
 end
 
@@ -257,10 +227,8 @@ rule "REG-017 - Convulsiones"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "convulsiones", answer == "SI")
     then
-        System.out.println("REG-017: Convulsiones detectadas");
         double nuevosPuntos = $cuadro.getSintomasAguda() + 3;
         $cuadro.setSintomasAguda(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 3);
         update($cuadro);
 end
 
@@ -271,10 +239,8 @@ rule "REG-018 - Trastornos Abdominales"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "trastornosAbdominales", answer == "SI")
     then
-        System.out.println("REG-018: Trastornos abdominales detectados");
         double nuevosPuntos = $cuadro.getSintomasAguda() + 5;
         $cuadro.setSintomasAguda(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 5);
         update($cuadro);
 end
 
@@ -285,10 +251,8 @@ rule "REG-019 - Síndrome Ácido Sensitivo"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "sindromeAcidoSensitivo", answer == "SI")
     then
-        System.out.println("REG-019: Síndrome ácido sensitivo detectado");
         double nuevosPuntos = $cuadro.getSintomasAguda() + 2;
         $cuadro.setSintomasAguda(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 2);
         update($cuadro);
 end
 
@@ -299,10 +263,8 @@ rule "REG-020 - Palpitaciones"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "palpitaciones", answer == "SI")
     then
-        System.out.println("REG-020: Palpitaciones detectadas");
         double nuevosPuntos = $cuadro.getSintomasAguda() + 3;
         $cuadro.setSintomasAguda(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 3);
         update($cuadro);
 end
 
@@ -313,10 +275,8 @@ rule "REG-021 - Anorexia"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "anorexia", answer == "SI")
     then
-        System.out.println("REG-021: Anorexia detectada");
         double nuevosPuntos = $cuadro.getSintomasAguda() + 2;
         $cuadro.setSintomasAguda(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 2);
         update($cuadro);
 end
 
@@ -327,10 +287,8 @@ rule "REG-022 - Estrés"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "estres", answer == "SI")
     then
-        System.out.println("REG-022: Estrés detectado");
         double nuevosPuntos = $cuadro.getSintomasAguda() + 5;
         $cuadro.setSintomasAguda(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 5);
         update($cuadro);
 end
 
@@ -341,10 +299,8 @@ rule "REG-023 - Trastornos Neurológicos"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "trastornosNeurologicos", answer == "SI")
     then
-        System.out.println("REG-023: Trastornos neurológicos detectados");
         double nuevosPuntos = $cuadro.getSintomasAguda() + 4;
         $cuadro.setSintomasAguda(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 4);
         update($cuadro);
 end
 
@@ -355,10 +311,8 @@ rule "REG-024 - Dolores Musculares"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "doloresMusculares", answer == "SI")
     then
-        System.out.println("REG-024: Dolores musculares detectados");
         double nuevosPuntos = $cuadro.getSintomasAguda() + 3;
         $cuadro.setSintomasAguda(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 3);
         update($cuadro);
 end
 
@@ -369,10 +323,8 @@ rule "REG-025 - Mareos"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "mareos", answer == "SI")
     then
-        System.out.println("REG-025: Mareos detectados");
         double nuevosPuntos = $cuadro.getSintomasAguda() + 3;
         $cuadro.setSintomasAguda(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 3);
         update($cuadro);
 end
 
@@ -383,10 +335,8 @@ rule "REG-026 - Parálisis"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "paralisis", answer == "SI")
     then
-        System.out.println("REG-026: Parálisis detectada");
         double nuevosPuntos = $cuadro.getSintomasAguda() + 4;
         $cuadro.setSintomasAguda(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 4);
         update($cuadro);
 end
 
@@ -397,10 +347,8 @@ rule "REG-027 - Dolor Abdominal/Lumbar"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "dolorAbdominalLumbar", answer == "SI")
     then
-        System.out.println("REG-027: Dolor abdominal/lumbar detectado");
         double nuevosPuntos = $cuadro.getSintomasAguda() + 5;
         $cuadro.setSintomasAguda(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 5);
         update($cuadro);
 end
 
@@ -411,10 +359,8 @@ rule "REG-028 - Constipación"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "constipacion", answer == "SI")
     then
-        System.out.println("REG-028: Constipación detectada");
         double nuevosPuntos = $cuadro.getSintomasAguda() + 3;
         $cuadro.setSintomasAguda(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 3);
         update($cuadro);
 end
 
@@ -425,10 +371,8 @@ rule "REG-029 - Astenia"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "astenia", answer == "SI")
     then
-        System.out.println("REG-029: Astenia detectada");
         double nuevosPuntos = $cuadro.getSintomasAguda() + 4;
         $cuadro.setSintomasAguda(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 4);
         update($cuadro);
 end
 
@@ -443,10 +387,8 @@ rule "REG-030 - Color Orina Oscura/Ámbar"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "colorOrina", answer == "SI")
     then
-        System.out.println("REG-030: Color orina oscura/ámbar detectado");
         double nuevosPuntos = $cuadro.getAnamnesis() + 5;
         $cuadro.setAnamnesis(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 5);
         update($cuadro);
 end
 
@@ -457,10 +399,8 @@ rule "REG-031 - Familiares"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "familiares", answer == "SI")
     then
-        System.out.println("REG-031: Antecedentes familiares detectados");
         double nuevosPuntos = $cuadro.getAnamnesis() + 5;
         $cuadro.setAnamnesis(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 5);
         update($cuadro);
 end
 
@@ -471,10 +411,8 @@ rule "REG-032 - Diabetes"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "diabetes", answer == "SI")
     then
-        System.out.println("REG-032: Diabetes detectada");
         double nuevosPuntos = $cuadro.getAnamnesis() + 0.5;
         $cuadro.setAnamnesis(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 0.5);
         update($cuadro);
 end
 
@@ -485,10 +423,8 @@ rule "REG-033 - HTA"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "hta", answer == "SI")
     then
-        System.out.println("REG-033: HTA detectada");
         double nuevosPuntos = $cuadro.getAnamnesis() + 0.5;
         $cuadro.setAnamnesis(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 0.5);
         update($cuadro);
 end
 
@@ -499,10 +435,8 @@ rule "REG-034 - Tiroides"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "tiroides", answer == "SI")
     then
-        System.out.println("REG-034: Tiroides detectada");
         double nuevosPuntos = $cuadro.getAnamnesis() + 0.5;
         $cuadro.setAnamnesis(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 0.5);
         update($cuadro);
 end
 
@@ -513,10 +447,8 @@ rule "REG-035 - Celiaquía"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "celiaquia", answer == "SI")
     then
-        System.out.println("REG-035: Celiaquía detectada");
         double nuevosPuntos = $cuadro.getAnamnesis() + 0.5;
         $cuadro.setAnamnesis(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 0.5);
         update($cuadro);
 end
 
@@ -527,10 +459,8 @@ rule "REG-036 - Lupus"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "lupus", answer == "SI")
     then
-        System.out.println("REG-036: Lupus detectado");
         double nuevosPuntos = $cuadro.getAnamnesis() + 0.5;
         $cuadro.setAnamnesis(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 0.5);
         update($cuadro);
 end
 
@@ -541,10 +471,8 @@ rule "REG-037 - Operaciones"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "operaciones", answer == "SI")
     then
-        System.out.println("REG-037: Operaciones detectadas");
         double nuevosPuntos = $cuadro.getSintomasCutanea() + 1;
         $cuadro.setSintomasCutanea(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 1);
         update($cuadro);
 end
 
@@ -555,10 +483,8 @@ rule "REG-038 - Contacto Policlorados"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "contactoPoliclorados", answer == "SI")
     then
-        System.out.println("REG-038: Contacto policlorados detectado");
         double nuevosPuntos = $cuadro.getSintomasCutanea() + 1;
         $cuadro.setSintomasCutanea(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 1);
         update($cuadro);
 end
 
@@ -569,10 +495,8 @@ rule "REG-039 - Contacto Otras Drogas"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "contactoOtrasDrogas", answer == "SI")
     then
-        System.out.println("REG-039: Contacto otras drogas detectado");
         double nuevosPuntos = $cuadro.getSintomasCutanea() + 1;
         $cuadro.setSintomasCutanea(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 1);
         update($cuadro);
 end
 
@@ -583,10 +507,8 @@ rule "REG-040 - Contacto Plomo"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "contactoPlomo", answer == "SI")
     then
-        System.out.println("REG-040: Contacto plomo detectado");
         double nuevosPuntos = $cuadro.getSintomasAguda() + 0.5;
         $cuadro.setSintomasAguda(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 0.5);
         update($cuadro);
 end
 
@@ -597,10 +519,8 @@ rule "REG-041 - Contacto Otros Metales"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "contactoOtrosMetales", answer == "SI")
     then
-        System.out.println("REG-041: Contacto otros metales detectado");
         double nuevosPuntos = $cuadro.getSintomasAguda() + 0.5;
         $cuadro.setSintomasAguda(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 0.5);
         update($cuadro);
 end
 
@@ -611,10 +531,8 @@ rule "REG-042 - Cercanía Fábrica"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "cercaniaFabrica", answer == "SI")
     then
-        System.out.println("REG-042: Cercanía fábrica detectada");
         double nuevosPuntos = $cuadro.getSintomasCutanea() + 1;
         $cuadro.setSintomasCutanea(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 1);
         update($cuadro);
 end
 
@@ -625,10 +543,8 @@ rule "REG-043 - Contacto Veneno"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "contactoVeneno", answer == "SI")
     then
-        System.out.println("REG-043: Contacto veneno detectado");
         double nuevosPuntos = $cuadro.getSintomasCutanea() + 1;
         $cuadro.setSintomasCutanea(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 1);
         update($cuadro);
 end
 
@@ -639,10 +555,8 @@ rule "REG-044 - Contacto Derivado Petróleo"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "contactoDerivadoPetroleo", answer == "SI")
     then
-        System.out.println("REG-044: Contacto derivado petróleo detectado");
         double nuevosPuntos = $cuadro.getSintomasCutanea() + 1;
         $cuadro.setSintomasCutanea(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 1);
         update($cuadro);
 end
 
@@ -653,10 +567,8 @@ rule "REG-045 - Consume Alcohol"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "consumeAlcohol", answer == "SI")
     then
-        System.out.println("REG-045: Consumo alcohol detectado");
         double nuevosPuntos = $cuadro.getAnamnesis() + 5;
         $cuadro.setAnamnesis(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 5);
         update($cuadro);
 end
 
@@ -667,10 +579,8 @@ rule "REG-046 - Fuma"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "fuma", answer == "SI")
     then
-        System.out.println("REG-046: Fuma detectado");
         double nuevosPuntos = $cuadro.getAnamnesis() + 2;
         $cuadro.setAnamnesis(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 2);
         update($cuadro);
 end
 
@@ -681,10 +591,8 @@ rule "REG-047 - Barbitúricos"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "barbituricos", answer == "SI")
     then
-        System.out.println("REG-047: Barbitúricos detectados");
         double nuevosPuntos = $cuadro.getSintomasAguda() + 5;
         $cuadro.setSintomasAguda(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 5);
         update($cuadro);
 end
 
@@ -695,10 +603,8 @@ rule "REG-048 - Medicamentos Hormonas"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "medicamentosHormonas", answer == "SI")
     then
-        System.out.println("REG-048: Medicamentos hormonas detectados");
         double nuevosPuntos = $cuadro.getAnamnesis() + 5;
         $cuadro.setAnamnesis(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 5);
         update($cuadro);
 end
 
@@ -709,10 +615,8 @@ rule "REG-049 - Anomalías Períodos Menstruales"
         $cuadro: CuadroClinico(patientId == $patient.id)
         $response: QuestionnaireResponse(questionId == "anomaliasPeriodosMenstruales", answer == "SI")
     then
-        System.out.println("REG-049: Anomalías períodos menstruales detectadas");
         double nuevosPuntos = $cuadro.getSintomasAguda() + 4;
         $cuadro.setSintomasAguda(nuevosPuntos);
-        $cuadro.setPuntuacionTotal($cuadro.getPuntuacionTotal() + 4);
         update($cuadro);
 end
 
@@ -720,40 +624,12 @@ end
 // REGLAS DE DIAGNÓSTICO
 // ========================================
 
-// REG-050: Determinar sintomatología Cutánea (>= 22 puntos)
-rule "REG-050 - Determinar Sintomatología Cutánea"
-    when
-        $patient: Patient()
-		$resp: QuestionnaireResponse( patientId == $patient.id, questionId == "dolorAbdominalLumbar", answer == "SI" )
-		$cuadro: CuadroClinico( patientId == $patient.id )
-    then
-        $cuadro.setSintomasAguda($cuadro.getSintomasAguda() + 3);
-		update($cuadro);
-end
-
-// REG-051: Determinar sintomatología Aguda (>= 36 puntos)
-rule "REG-051 - Determinar Sintomatología Aguda"
-    when
-        $patient: Patient()
-        $cuadro: CuadroClinico(patientId == $patient.id, sintomasAguda >= 36)
-        not DiagnosticoTemprano(patientId == $patient.id)
-    then
-        System.out.println("REG-051: Sintomatología aguda detectada (>= 36 puntos)");
-        DiagnosticoTemprano diagnostico = new DiagnosticoTemprano();
-        diagnostico.setPatientId($patient.getId());
-        diagnostico.setSintomaCutanea("No_Presenta");
-        diagnostico.setSintomaAguda("Presenta");
-        insert(diagnostico);
-end
-
 // REG-052: Determinar sintomatología Aguda (>= 36 puntos OR anamnesis >= 12)
-rule "REG-052 - Determinar Sintomatología Aguda Alternativa"
+rule "REG-052 - Determinar Sintomatología Aguda"
     when
         $patient: Patient()
-        $cuadro: CuadroClinico(patientId == $patient.id, sintomasAguda >= 36 || anamnesis >= 12)
-        not DiagnosticoTemprano(patientId == $patient.id)
+        $cuadro: CuadroClinico(patientId == $patient.id, $cuadro.getSintomasAguda() >= 36 || $cuadro.getAnamnesis() >= 12)
     then
-        System.out.println("REG-052: Sintomatología aguda detectada (alternativa)");
         DiagnosticoTemprano diagnostico = new DiagnosticoTemprano();
         diagnostico.setPatientId($patient.getId());
         diagnostico.setSintomaCutanea("No_Presenta");
@@ -761,14 +637,12 @@ rule "REG-052 - Determinar Sintomatología Aguda Alternativa"
         insert(diagnostico);
 end
 
-// REG-053: Determinar sintomatología Cutánea (anamnesis >= 12)
-rule "REG-053 - Determinar Sintomatología Cutánea Alternativa"
+// REG-053: Determinar sintomatología Cutánea (>= 22 puntos OR anamnesis >= 12)
+rule "REG-053 - Determinar Sintomatología Cutánea"
     when
         $patient: Patient()
-        $cuadro: CuadroClinico(patientId == $patient.id, anamnesis >= 12)
-        not DiagnosticoTemprano(patientId == $patient.id)
+        $cuadro: CuadroClinico(patientId == $patient.id, $cuadro.getSintomasCutanea() >= 22 || $cuadro.getAnamnesis() >= 12)
     then
-        System.out.println("REG-053: Sintomatología cutánea detectada (anamnesis >= 12)");
         DiagnosticoTemprano diagnostico = new DiagnosticoTemprano();
         diagnostico.setPatientId($patient.getId());
         diagnostico.setSintomaCutanea("Presenta");
@@ -787,8 +661,6 @@ rule "REG-054 - Ordenar Estudios Porfiria Aguda"
         $diagnostico: DiagnosticoTemprano(patientId == $patient.id, sintomaAguda == "Presenta")
         not GenerarOrden(patientId == $patient.id)
     then
-        System.out.println("REG-054: Generando órdenes para Porfiria Aguda");
-        
         List estudios = new ArrayList();
         estudios.add("PBG (Porfobilinógeno)");
         estudios.add("IPP (Isómeros de Porfirinas)");
@@ -808,14 +680,11 @@ rule "REG-055 - Ordenar Estudios Porfiria Cutánea"
         $diagnostico: DiagnosticoTemprano(patientId == $patient.id, sintomaCutanea == "Presenta")
         not GenerarOrden(patientId == $patient.id)
     then
-        System.out.println("REG-055: Generando órdenes para Porfiria Cutánea");
-        
         List estudios = new ArrayList();
         estudios.add("IPP (Isómeros de Porfirinas)");
         estudios.add("PTO (Porfirinas Totales en Orina)");
         estudios.add("CRO (Coproporfirinas)");
         estudios.add("PBG (Porfobilinógeno)");
-        
         GenerarOrden orden = new GenerarOrden();
         orden.setPatientId($patient.getId());
         orden.setEstudios(estudios);
@@ -830,14 +699,8 @@ end
 rule "REG-056 - Informar Medicamentos Contraproducentes"
     when
         $patient: Patient()
-        $diagnostico: DiagnosticoTemprano(
-            patientId == $patient.id,
-            sintomaCutanea == "Presenta" || sintomaAguda == "Presenta"
-        )
-        not InformarWeb(patientId == $patient.id)
+        $diagnostico: DiagnosticoTemprano(patientId == $patient.id, sintomaAguda == "Presenta")
     then
-        System.out.println("REG-056: Informando medicamentos contraproducentes");
-        
         List medicamentos = new ArrayList();  // Agrega aquí los medicamentos reales, ya que estaba vacío
         InformarWeb informar = new InformarWeb();
         informar.setPatientId($patient.getId());
