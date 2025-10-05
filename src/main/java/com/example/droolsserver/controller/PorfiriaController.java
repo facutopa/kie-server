@@ -59,20 +59,52 @@ public class PorfiriaController {
 
             // Organizar resultados
             Map<String, Object> response = new HashMap<>();
+            boolean tieneCuadro = false;
+            boolean tieneDiagnostico = false;
+            boolean tieneOrdenes = false;
+            boolean tieneMedicamentos = false;
+
             for (Object resultado : resultados) {
                 if (resultado instanceof CuadroClinico) {
                     response.put("cuadroClinico", resultado);
+                    tieneCuadro = true;
                     System.out.println("Cuadro clínico encontrado: " + resultado);
                 } else if (resultado instanceof DiagnosticoTemprano) {
                     response.put("diagnostico", resultado);
+                    tieneDiagnostico = true;
                     System.out.println("Diagnóstico encontrado: " + resultado);
                 } else if (resultado instanceof GenerarOrden) {
                     response.put("ordenes", resultado);
+                    tieneOrdenes = true;
                     System.out.println("Órdenes encontradas: " + resultado);
                 } else if (resultado instanceof InformarWeb) {
                     response.put("medicamentos", resultado);
+                    tieneMedicamentos = true;
                     System.out.println("Medicamentos encontrados: " + resultado);
                 }
+            }
+
+            // Completar estructura consistente con valores por defecto cuando no aplica
+            if (!tieneDiagnostico) {
+                DiagnosticoTemprano diagnosticoDefault = new DiagnosticoTemprano();
+                diagnosticoDefault.setPatientId(patient.getId());
+                diagnosticoDefault.setSintomaCutanea(false);
+                diagnosticoDefault.setSintomaAguda(false);
+                response.put("diagnostico", diagnosticoDefault);
+            }
+
+            if (!tieneOrdenes) {
+                GenerarOrden ordenDefault = new GenerarOrden();
+                ordenDefault.setPatientId(patient.getId());
+                ordenDefault.setEstudios(false);
+                response.put("ordenes", ordenDefault);
+            }
+
+            if (!tieneMedicamentos) {
+                InformarWeb informarDefault = new InformarWeb();
+                informarDefault.setPatientId(patient.getId());
+                informarDefault.setMedicamentos(false);
+                response.put("medicamentos", informarDefault);
             }
 
             System.out.println("Respuesta final: " + response);

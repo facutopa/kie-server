@@ -2,6 +2,7 @@ package com.example.droolsserver.service;
 
 import com.example.droolsserver.model.*;
 import org.kie.api.runtime.KieSession;
+import org.kie.api.runtime.KieContainer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +13,10 @@ import java.util.ArrayList;
 public class DroolsService {
 
     @Autowired
-    private KieSession kieSession;
+    private KieContainer kieContainer;
 
     public CuadroClinico procesarPaciente(Patient patient, List<QuestionnaireResponse> responses) {
-        KieSession session = kieSession;
+        KieSession session = kieContainer.newKieSession();
         try {
             // Insertar el paciente
             session.insert(patient);
@@ -44,7 +45,7 @@ public class DroolsService {
 
     public List<Object> obtenerResultadosCompletos(Patient patient, List<QuestionnaireResponse> responses) {
         System.out.println("=== INICIANDO PROCESAMIENTO DROOLS ===");
-        KieSession session = kieSession;
+        KieSession session = kieContainer.newKieSession();
         List<Object> resultados = new ArrayList<>();
         
         try {
@@ -88,7 +89,7 @@ public class DroolsService {
     }
 
     public DiagnosticoTemprano obtenerDiagnostico(Patient patient, List<QuestionnaireResponse> responses) {
-        KieSession session = kieSession;
+        KieSession session = kieContainer.newKieSession();
         try {
             session.insert(patient);
             for (QuestionnaireResponse response : responses) {
@@ -110,7 +111,7 @@ public class DroolsService {
     }
 
     public GenerarOrden obtenerOrdenes(Patient patient, List<QuestionnaireResponse> responses) {
-        KieSession session = kieSession;
+        KieSession session = kieContainer.newKieSession();
         try {
             session.insert(patient);
             for (QuestionnaireResponse response : responses) {

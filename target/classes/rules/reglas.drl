@@ -20,6 +20,20 @@ import com.example.droolsserver.model.Recommendation;
 
 // Los tipos están definidos en las clases Java, no necesitamos declararlos aquí
 
+// REG-000: Inicializar Cuadro Clínico si no existe
+rule "REG-000 - Inicializar Cuadro Clínico"
+    when
+        $patient: Patient()
+        not CuadroClinico(patientId == $patient.id)
+    then
+        CuadroClinico cuadro = new CuadroClinico();
+        cuadro.setPatientId($patient.getId());
+        cuadro.setSintomasCutanea(0.0);
+        cuadro.setSintomasAguda(0.0);
+        cuadro.setAnamnesis(0.0);
+        insert(cuadro);
+end
+
 // ========================================
 // REGLAS DE PUNTUACIÓN - SÍNTOMAS CUTÁNEOS
 // ========================================
@@ -28,12 +42,12 @@ import com.example.droolsserver.model.Recommendation;
 rule "REG-001 - Máculas"
     when
         $patient: Patient()
-        QuestionnaireResponse( patientId == $patient.id, questionId == "maculas", answer == "SI" )
+        $cuadro: CuadroClinico(patientId == $patient.id)
+        $response: QuestionnaireResponse(questionId == "maculas", answer == "SI" )
     then
-        CuadroClinico cuadro = new CuadroClinico();
-		cuadro.setPatientId($patient.getId());
-		cuadro.setSintomasCutanea(2.0);  // Usando double explícito
-		insert(cuadro);
+        double nuevosPuntos = $cuadro.getSintomasCutanea() + 2;
+		$cuadro.setSintomasCutanea(nuevosPuntos);
+		insert($cuadro);
 end
 
 // REG-002: Fragilidad Cutánea (+5 puntos)
@@ -632,8 +646,8 @@ rule "REG-052 - Determinar Sintomatología Aguda"
     then
         DiagnosticoTemprano diagnostico = new DiagnosticoTemprano();
         diagnostico.setPatientId($patient.getId());
-        diagnostico.setSintomaCutanea("No_Presenta");
-        diagnostico.setSintomaAguda("Presenta");
+        diagnostico.setSintomaCutanea(false);
+        diagnostico.setSintomaAguda(true);
         insert(diagnostico);
 end
 
@@ -645,8 +659,8 @@ rule "REG-053 - Determinar Sintomatología Cutánea"
     then
         DiagnosticoTemprano diagnostico = new DiagnosticoTemprano();
         diagnostico.setPatientId($patient.getId());
-        diagnostico.setSintomaCutanea("Presenta");
-        diagnostico.setSintomaAguda("No_Presenta");
+        diagnostico.setSintomaCutanea(true);
+        diagnostico.setSintomaAguda(false);
         insert(diagnostico);
 end
 
@@ -654,56 +668,32 @@ end
 // REGLAS DE ORDENES DE ESTUDIOS
 // ========================================
 
-// REG-054: Ordenar estudios Porfiria Aguda
-rule "REG-054 - Ordenar Estudios Porfiria Aguda"
+// REG-054: Ordenar estudios
+rule "REG-054 - Ordenar Estudios"
     when
         $patient: Patient()
-        $diagnostico: DiagnosticoTemprano(patientId == $patient.id, sintomaAguda == "Presenta")
+        $diagnostico: DiagnosticoTemprano(patientId == $patient.id, sintomaAguda == true || sintomaCutanea == true)
         not GenerarOrden(patientId == $patient.id)
-    then
-        List estudios = new ArrayList();
-        estudios.add("PBG (Porfobilinógeno)");
-        estudios.add("IPP (Isómeros de Porfirinas)");
-        estudios.add("ALA (Ácido Aminolevulínico)");
-        estudios.add("PTO (Porfirinas Totales en Orina)");
-        
+    then   
         GenerarOrden orden = new GenerarOrden();
         orden.setPatientId($patient.getId());
-        orden.setEstudios(estudios);
+        orden.setEstudios(true);
         insert(orden);
 end
 
-// REG-055: Ordenar estudios Porfiria Cutánea
-rule "REG-055 - Ordenar Estudios Porfiria Cutánea"
-    when
-        $patient: Patient()
-        $diagnostico: DiagnosticoTemprano(patientId == $patient.id, sintomaCutanea == "Presenta")
-        not GenerarOrden(patientId == $patient.id)
-    then
-        List estudios = new ArrayList();
-        estudios.add("IPP (Isómeros de Porfirinas)");
-        estudios.add("PTO (Porfirinas Totales en Orina)");
-        estudios.add("CRO (Coproporfirinas)");
-        estudios.add("PBG (Porfobilinógeno)");
-        GenerarOrden orden = new GenerarOrden();
-        orden.setPatientId($patient.getId());
-        orden.setEstudios(estudios);
-        insert(orden);
-end
 
 // ========================================
 // REGLAS DE MEDICAMENTOS CONTRAPRODUCENTES
 // ========================================
 
-// REG-056: Informar Medicamentos Contraproducentes
+// REG-055: Informar Medicamentos Contraproducentes
 rule "REG-056 - Informar Medicamentos Contraproducentes"
     when
         $patient: Patient()
-        $diagnostico: DiagnosticoTemprano(patientId == $patient.id, sintomaAguda == "Presenta")
+        $diagnostico: DiagnosticoTemprano(patientId == $patient.id, sintomaAguda == true)
     then
-        List medicamentos = new ArrayList();  // Agrega aquí los medicamentos reales, ya que estaba vacío
         InformarWeb informar = new InformarWeb();
         informar.setPatientId($patient.getId());
-        informar.setMedicamentosContraproducentes(medicamentos);
+        informar.setMedicamentos(true);
         insert(informar);
 end

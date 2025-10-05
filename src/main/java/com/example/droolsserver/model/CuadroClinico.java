@@ -15,15 +15,6 @@ public class CuadroClinico {
     
     @JsonProperty("anamnesis")
     private double anamnesis;
-    
-    @JsonProperty("puntuacionTotal")
-    private double puntuacionTotal;
-    
-    @JsonProperty("tipoPorfiria")
-    private String tipoPorfiria; // "AGUDA", "CUTANEA", "MIXTA", "NO_APLICA"
-    
-    @JsonProperty("nivelRiesgo")
-    private String nivelRiesgo; // "ALTO", "MEDIO", "BAJO"
 
     // Constructores
     public CuadroClinico() {}
@@ -33,7 +24,6 @@ public class CuadroClinico {
         this.sintomasCutanea = 0.0;
         this.sintomasAguda = 0.0;
         this.anamnesis = 0.0;
-        this.puntuacionTotal = 0.0;
     }
 
     // Getters y Setters
@@ -69,29 +59,6 @@ public class CuadroClinico {
         this.anamnesis = anamnesis;
     }
 
-    public double getPuntuacionTotal() {
-        return puntuacionTotal;
-    }
-
-    public void setPuntuacionTotal(double puntuacionTotal) {
-        this.puntuacionTotal = puntuacionTotal;
-    }
-
-    public String getTipoPorfiria() {
-        return tipoPorfiria;
-    }
-
-    public void setTipoPorfiria(String tipoPorfiria) {
-        this.tipoPorfiria = tipoPorfiria;
-    }
-
-    public String getNivelRiesgo() {
-        return nivelRiesgo;
-    }
-
-    public void setNivelRiesgo(String nivelRiesgo) {
-        this.nivelRiesgo = nivelRiesgo;
-    }
 
     @Override
     public String toString() {
@@ -100,9 +67,6 @@ public class CuadroClinico {
                 ", sintomasCutanea=" + sintomasCutanea +
                 ", sintomasAguda=" + sintomasAguda +
                 ", anamnesis=" + anamnesis +
-                ", puntuacionTotal=" + puntuacionTotal +
-                ", tipoPorfiria='" + tipoPorfiria + '\'' +
-                ", nivelRiesgo='" + nivelRiesgo + '\'' +
                 '}';
     }
 }

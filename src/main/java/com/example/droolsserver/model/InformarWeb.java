@@ -1,15 +1,16 @@
 package com.example.droolsserver.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.List;
 
 public class InformarWeb {
     
     @JsonProperty("patientId")
     private String patientId;
     
-    @JsonProperty("medicamentosContraproducentes")
-    private List<String> medicamentosContraproducentes;
+    // Ya no se envía el detalle; la app cliente decide qué mostrar.
+    
+    @JsonProperty("medicamentos")
+    private Boolean medicamentos; // true si necesita informar medicamentos, false si no
 
     // Constructores
     public InformarWeb() {}
@@ -27,19 +28,19 @@ public class InformarWeb {
         this.patientId = patientId;
     }
 
-    public List<String> getMedicamentosContraproducentes() {
-        return medicamentosContraproducentes;
+
+    public Boolean getMedicamentos() {
+        return medicamentos;
     }
 
-    public void setMedicamentosContraproducentes(List<String> medicamentosContraproducentes) {
-        this.medicamentosContraproducentes = medicamentosContraproducentes;
+    public void setMedicamentos(Boolean medicamentos) {
+        this.medicamentos = medicamentos;
     }
 
     @Override
     public String toString() {
         return "InformarWeb{" +
                 "patientId='" + patientId + '\'' +
-                ", medicamentosContraproducentes=" + medicamentosContraproducentes +
                 '}';
     }
 }

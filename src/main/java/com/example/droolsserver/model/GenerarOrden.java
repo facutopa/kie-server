@@ -1,7 +1,6 @@
 package com.example.droolsserver.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.List;
 
 public class GenerarOrden {
     
@@ -9,7 +8,7 @@ public class GenerarOrden {
     private String patientId;
     
     @JsonProperty("estudios")
-    private List<String> estudios;
+    private Boolean estudios; // true si necesita estudios, false si no
 
     // Constructores
     public GenerarOrden() {}
@@ -27,11 +26,11 @@ public class GenerarOrden {
         this.patientId = patientId;
     }
 
-    public List<String> getEstudios() {
+    public Boolean getEstudios() {
         return estudios;
     }
 
-    public void setEstudios(List<String> estudios) {
+    public void setEstudios(Boolean estudios) {
         this.estudios = estudios;
     }
 

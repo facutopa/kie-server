@@ -1,0 +1,172 @@
+openapi: 3.0.3
+info:
+  title: API Diagnóstico de Porfiria
+  version: "1.0.0"
+  description: |
+    API para evaluar cuestionarios clínicos y derivar diagnóstico temprano, órdenes de estudios y notificaciones de medicamentos.
+servers:
+  - url: http://localhost:8080
+paths:
+  /api/porfiria/evaluar:
+    post:
+      summary: Evaluación completa a partir de un cuestionario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EvaluacionRequest'
+            examples:
+              agudos:
+                value:
+                  patientId: P001
+                  firstName: María
+                  lastName: González
+                  dni: "12345678"
+                  age: 35
+                  gender: F
+                  familyHistory: true
+                  alcoholConsumption: false
+                  fastingStatus: true
+                  responses:
+                    - { questionId: parestesias, answer: SI, patientId: P001 }
+                    - { questionId: paresia, answer: SI, patientId: P001 }
+                    - { questionId: dolorAbdominalLumbar, answer: SI, patientId: P001 }
+                    - { questionId: trastornosAbdominales, answer: SI, patientId: P001 }
+                    - { questionId: estres, answer: SI, patientId: P001 }
+                    - { questionId: convulsiones, answer: SI, patientId: P001 }
+                    - { questionId: colorOrina, answer: SI, patientId: P001 }
+                    - { questionId: familiares, answer: SI, patientId: P001 }
+      responses:
+        '200':
+          description: Resultado consolidado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EvaluacionResponse'
+        '400':
+          description: Request inválido
+  /api/porfiria/diagnostico:
+    post:
+      summary: Devuelve solo el diagnóstico temprano
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EvaluacionRequest'
+      responses:
+        '200':
+          description: Diagnóstico
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiagnosticoTemprano'
+  /api/porfiria/ordenes:
+    post:
+      summary: Devuelve solo órdenes (bandera de estudios)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EvaluacionRequest'
+      responses:
+        '200':
+          description: Órdenes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerarOrden'
+  /api/porfiria/cuadro-clinico:
+    post:
+      summary: Devuelve solo el cuadro clínico (puntuaciones)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EvaluacionRequest'
+      responses:
+        '200':
+          description: Cuadro clínico
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CuadroClinico'
+  /api/porfiria/health:
+    get:
+      summary: Health check
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+
+components:
+  schemas:
+    EvaluacionRequest:
+      type: object
+      required: [patientId, firstName, lastName, dni, age, gender, responses]
+      properties:
+        patientId: { type: string }
+        firstName: { type: string }
+        lastName: { type: string }
+        dni: { type: string }
+        age: { type: integer }
+        gender: { type: string, enum: [M, F, X] }
+        familyHistory: { type: boolean, nullable: true }
+        alcoholConsumption: { type: boolean, nullable: true }
+        fastingStatus: { type: boolean, nullable: true }
+        responses:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuestionnaireResponse'
+    QuestionnaireResponse:
+      type: object
+      required: [questionId, answer, patientId]
+      properties:
+        questionId: { type: string }
+        answer: { type: string, description: "Valores esperados: SI/NO (u otros segun pregunta)" }
+        patientId: { type: string }
+    EvaluacionResponse:
+      type: object
+      required: [diagnostico, ordenes, medicamentos]
+      properties:
+        cuadroClinico:
+          $ref: '#/components/schemas/CuadroClinico'
+        diagnostico:
+          $ref: '#/components/schemas/DiagnosticoTemprano'
+        ordenes:
+          $ref: '#/components/schemas/GenerarOrden'
+        medicamentos:
+          $ref: '#/components/schemas/InformarWeb'
+    CuadroClinico:
+      type: object
+      required: [patientId, sintomasCutanea, sintomasAguda, anamnesis]
+      properties:
+        patientId: { type: string }
+        sintomasCutanea: { type: number, format: double }
+        sintomasAguda: { type: number, format: double }
+        anamnesis: { type: number, format: double }
+    DiagnosticoTemprano:
+      type: object
+      required: [patientId, sintomaCutanea, sintomaAguda]
+      properties:
+        patientId: { type: string }
+        sintomaCutanea: { type: boolean }
+        sintomaAguda: { type: boolean }
+    GenerarOrden:
+      type: object
+      required: [patientId, estudios]
+      properties:
+        patientId: { type: string }
+        estudios: { type: boolean }
+    InformarWeb:
+      type: object
+      required: [patientId, medicamentos]
+      properties:
+        patientId: { type: string }
+        medicamentos: { type: boolean }

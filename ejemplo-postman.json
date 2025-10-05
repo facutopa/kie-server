@@ -1,0 +1,139 @@
+{
+  "info": {
+    "name": "Sistema de Diagnóstico de Porfiria - Un Cuestionario por Llamada",
+    "description": "Ejemplos para probar el sistema con un cuestionario por llamada a la API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Cuestionario Completo - Síntomas Agudos",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"patientId\": \"P001\",\n  \"firstName\": \"María\",\n  \"lastName\": \"González\",\n  \"dni\": \"12345678\",\n  \"age\": 35,\n  \"gender\": \"F\",\n  \"familyHistory\": true,\n  \"alcoholConsumption\": false,\n  \"fastingStatus\": true,\n  \"responses\": [\n    {\n      \"questionId\": \"parestesias\",\n      \"answer\": \"SI\",\n      \"patientId\": \"P001\"\n    },\n    {\n      \"questionId\": \"paresia\",\n      \"answer\": \"SI\",\n      \"patientId\": \"P001\"\n    },\n    {\n      \"questionId\": \"dolorAbdominalLumbar\",\n      \"answer\": \"SI\",\n      \"patientId\": \"P001\"\n    },\n    {\n      \"questionId\": \"trastornosAbdominales\",\n      \"answer\": \"SI\",\n      \"patientId\": \"P001\"\n    },\n    {\n      \"questionId\": \"estres\",\n      \"answer\": \"SI\",\n      \"patientId\": \"P001\"\n    },\n    {\n      \"questionId\": \"convulsiones\",\n      \"answer\": \"SI\",\n      \"patientId\": \"P001\"\n    },\n    {\n      \"questionId\": \"colorOrina\",\n      \"answer\": \"SI\",\n      \"patientId\": \"P001\"\n    },\n    {\n      \"questionId\": \"familiares\",\n      \"answer\": \"SI\",\n      \"patientId\": \"P001\"\n    },\n    {\n      \"questionId\": \"consumeAlcohol\",\n      \"answer\": \"SI\",\n      \"patientId\": \"P001\"\n    },\n    {\n      \"questionId\": \"barbituricos\",\n      \"answer\": \"SI\",\n      \"patientId\": \"P001\"\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/porfiria/evaluar",
+          "host": ["{{base_url}}"],
+          "path": ["api", "porfiria", "evaluar"]
+        },
+        "description": "Un cuestionario completo de un paciente con síntomas agudos. Debe retornar: sintomaAguda=true, estudios=true, medicamentos=true"
+      }
+    },
+    {
+      "name": "2. Cuestionario Completo - Síntomas Cutáneos",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"patientId\": \"P002\",\n  \"firstName\": \"Carlos\",\n  \"lastName\": \"Ruiz\",\n  \"dni\": \"87654321\",\n  \"age\": 42,\n  \"gender\": \"M\",\n  \"familyHistory\": false,\n  \"alcoholConsumption\": false,\n  \"fastingStatus\": false,\n  \"responses\": [\n    {\n      \"questionId\": \"maculas\",\n      \"answer\": \"SI\",\n      \"patientId\": \"P002\"\n    },\n    {\n      \"questionId\": \"fragilidadCutanea\",\n      \"answer\": \"SI\",\n      \"patientId\": \"P002\"\n    },\n    {\n      \"questionId\": \"hipertricosis\",\n      \"answer\": \"SI\",\n      \"patientId\": \"P002\"\n    },\n    {\n      \"questionId\": \"ampollas\",\n      \"answer\": \"SI\",\n      \"patientId\": \"P002\"\n    },\n    {\n      \"questionId\": \"fotosensibilidad\",\n      \"answer\": \"SI\",\n      \"patientId\": \"P002\"\n    },\n    {\n      \"questionId\": \"hiperpigmentacion\",\n      \"answer\": \"SI\",\n      \"patientId\": \"P002\"\n    },\n    {\n      \"questionId\": \"costras\",\n      \"answer\": \"SI\",\n      \"patientId\": \"P002\"\n    },\n    {\n      \"questionId\": \"quistesMilia\",\n      \"answer\": \"SI\",\n      \"patientId\": \"P002\"\n    },\n    {\n      \"questionId\": \"colorOrina\",\n      \"answer\": \"SI\",\n      \"patientId\": \"P002\"\n    },\n    {\n      \"questionId\": \"familiares\",\n      \"answer\": \"SI\",\n      \"patientId\": \"P002\"\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/porfiria/evaluar",
+          "host": ["{{base_url}}"],
+          "path": ["api", "porfiria", "evaluar"]
+        },
+        "description": "Un cuestionario completo de un paciente con síntomas cutáneos. Debe retornar: sintomaCutanea=true, estudios=true, medicamentos=false"
+      }
+    },
+    {
+      "name": "3. Cuestionario Completo - Sin Síntomas",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"patientId\": \"P003\",\n  \"firstName\": \"Ana\",\n  \"lastName\": \"Martínez\",\n  \"dni\": \"11223344\",\n  \"age\": 28,\n  \"gender\": \"F\",\n  \"familyHistory\": false,\n  \"alcoholConsumption\": false,\n  \"fastingStatus\": true,\n  \"responses\": [\n    {\n      \"questionId\": \"parestesias\",\n      \"answer\": \"NO\",\n      \"patientId\": \"P003\"\n    },\n    {\n      \"questionId\": \"maculas\",\n      \"answer\": \"NO\",\n      \"patientId\": \"P003\"\n    },\n    {\n      \"questionId\": \"colorOrina\",\n      \"answer\": \"NO\",\n      \"patientId\": \"P003\"\n    },\n    {\n      \"questionId\": \"familiares\",\n      \"answer\": \"NO\",\n      \"patientId\": \"P003\"\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/porfiria/evaluar",
+          "host": ["{{base_url}}"],
+          "path": ["api", "porfiria", "evaluar"]
+        },
+        "description": "Un cuestionario completo de un paciente sin síntomas. Debe retornar solo cuadroClinico con puntuaciones bajas, sin diagnóstico ni órdenes"
+      }
+    },
+    {
+      "name": "4. Solo Diagnóstico - Síntomas Mixtos",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"patientId\": \"P004\",\n  \"firstName\": \"Luis\",\n  \"lastName\": \"Fernández\",\n  \"dni\": \"55667788\",\n  \"age\": 50,\n  \"gender\": \"M\",\n  \"familyHistory\": true,\n  \"alcoholConsumption\": true,\n  \"fastingStatus\": false,\n  \"responses\": [\n    {\n      \"questionId\": \"parestesias\",\n      \"answer\": \"SI\",\n      \"patientId\": \"P004\"\n    },\n    {\n      \"questionId\": \"dolorAbdominalLumbar\",\n      \"answer\": \"SI\",\n      \"patientId\": \"P004\"\n    },\n    {\n      \"questionId\": \"maculas\",\n      \"answer\": \"SI\",\n      \"patientId\": \"P004\"\n    },\n    {\n      \"questionId\": \"fotosensibilidad\",\n      \"answer\": \"SI\",\n      \"patientId\": \"P004\"\n    },\n    {\n      \"questionId\": \"colorOrina\",\n      \"answer\": \"SI\",\n      \"patientId\": \"P004\"\n    },\n    {\n      \"questionId\": \"familiares\",\n      \"answer\": \"SI\",\n      \"patientId\": \"P004\"\n    },\n    {\n      \"questionId\": \"consumeAlcohol\",\n      \"answer\": \"SI\",\n      \"patientId\": \"P004\"\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/porfiria/diagnostico",
+          "host": ["{{base_url}}"],
+          "path": ["api", "porfiria", "diagnostico"]
+        },
+        "description": "Solo diagnóstico de un paciente con síntomas mixtos. Debe retornar: sintomaCutanea=true, sintomaAguda=true"
+      }
+    },
+    {
+      "name": "5. Solo Órdenes - Síntomas Agudos",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"patientId\": \"P005\",\n  \"firstName\": \"Elena\",\n  \"lastName\": \"Vargas\",\n  \"dni\": \"99887766\",\n  \"age\": 38,\n  \"gender\": \"F\",\n  \"familyHistory\": false,\n  \"alcoholConsumption\": false,\n  \"fastingStatus\": true,\n  \"responses\": [\n    {\n      \"questionId\": \"parestesias\",\n      \"answer\": \"SI\",\n      \"patientId\": \"P005\"\n    },\n    {\n      \"questionId\": \"paresia\",\n      \"answer\": \"SI\",\n      \"patientId\": \"P005\"\n    },\n    {\n      \"questionId\": \"trastornosAbdominales\",\n      \"answer\": \"SI\",\n      \"patientId\": \"P005\"\n    },\n    {\n      \"questionId\": \"estres\",\n      \"answer\": \"SI\",\n      \"patientId\": \"P005\"\n    },\n    {\n      \"questionId\": \"colorOrina\",\n      \"answer\": \"SI\",\n      \"patientId\": \"P005\"\n    },\n    {\n      \"questionId\": \"familiares\",\n      \"answer\": \"SI\",\n      \"patientId\": \"P005\"\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/porfiria/ordenes",
+          "host": ["{{base_url}}"],
+          "path": ["api", "porfiria", "ordenes"]
+        },
+        "description": "Solo órdenes de un paciente con síntomas agudos. Debe retornar: estudios=true, medicamentos=true"
+      }
+    },
+    {
+      "name": "6. Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/porfiria/health",
+          "host": ["{{base_url}}"],
+          "path": ["api", "porfiria", "health"]
+        },
+        "description": "Verificar que el servicio esté funcionando"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080",
+      "description": "URL base del servidor"
+    }
+  ]
+}

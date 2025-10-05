@@ -8,10 +8,10 @@ public class DiagnosticoTemprano {
     private String patientId;
     
     @JsonProperty("sintomaCutanea")
-    private String sintomaCutanea; // "Presenta", "No_Presenta", null
+    private Boolean sintomaCutanea; // true si presenta, false si no presenta, null si no evaluado
     
     @JsonProperty("sintomaAguda")
-    private String sintomaAguda; // "Presenta", "No_Presenta", null
+    private Boolean sintomaAguda; // true si presenta, false si no presenta, null si no evaluado
 
     // Constructores
     public DiagnosticoTemprano() {}
@@ -29,19 +29,19 @@ public class DiagnosticoTemprano {
         this.patientId = patientId;
     }
 
-    public String getSintomaCutanea() {
+    public Boolean getSintomaCutanea() {
         return sintomaCutanea;
     }
 
-    public void setSintomaCutanea(String sintomaCutanea) {
+    public void setSintomaCutanea(Boolean sintomaCutanea) {
         this.sintomaCutanea = sintomaCutanea;
     }
 
-    public String getSintomaAguda() {
+    public Boolean getSintomaAguda() {
         return sintomaAguda;
     }
 
-    public void setSintomaAguda(String sintomaAguda) {
+    public void setSintomaAguda(Boolean sintomaAguda) {
         this.sintomaAguda = sintomaAguda;
     }
 

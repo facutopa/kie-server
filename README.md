@@ -48,31 +48,17 @@ Este proyecto implementa un sistema de diagnóstico de Porfiria usando Spring Bo
    - Abrir navegador en: http://localhost:8080/api/porfiria/health
    - Debería mostrar: "Sistema de Diagnóstico de Porfiria está funcionando correctamente"
 
-## API Endpoints
+## API y Contrato
 
-### 1. Estado del Servidor
-```
-GET /api/porfiria/health
-```
-**Respuesta:** Mensaje de estado del servidor
+### Endpoints principales
+- GET `/api/porfiria/health` — estado del servidor
+- POST `/api/porfiria/evaluar` — evaluación completa (diagnóstico, órdenes, medicamentos, cuadro clínico)
+- POST `/api/porfiria/diagnostico` — solo diagnóstico
+- POST `/api/porfiria/ordenes` — solo órdenes (estudios: boolean)
+- POST `/api/porfiria/cuadro-clinico` — solo cuadro clínico (puntuaciones)
 
-### 2. Información del Sistema
-```
-GET /api/porfiria/info
-```
-**Respuesta:** Información sobre las reglas médicas disponibles y endpoints
-
-### 3. Ejemplos de Uso
-```
-GET /api/porfiria/ejemplos
-```
-**Respuesta:** Ejemplos de JSON para probar la API
-
-### 4. Evaluación Completa de Paciente
-```
-POST /api/porfiria/evaluar
-Content-Type: application/json
-
+### Request (un único cuestionario)
+```json
 {
   "patientId": "P001",
   "firstName": "María",
@@ -82,121 +68,46 @@ Content-Type: application/json
   "gender": "F",
   "familyHistory": true,
   "alcoholConsumption": false,
-  "fastingStatus": false,
+  "fastingStatus": true,
   "responses": [
-    {
-      "questionId": "maculas",
-      "answer": "SI",
-      "patientId": "P001"
-    },
-    {
-      "questionId": "fragilidadCutanea",
-      "answer": "SI",
-      "patientId": "P001"
-    },
-    {
-      "questionId": "fotosensibilidad",
-      "answer": "SI",
-      "patientId": "P001"
-    }
+    { "questionId": "parestesias", "answer": "SI", "patientId": "P001" }
   ]
 }
 ```
 
-**Respuesta:**
+### Respuesta consistente (si no aplica, viene en false)
 ```json
 {
   "cuadroClinico": {
     "patientId": "P001",
-    "sintomasCutanea": 11.0,
-    "sintomasAguda": 0.0,
-    "anamnesis": 0.0,
-    "puntuacionTotal": 11.0,
-    "tipoPorfiria": null,
-    "nivelRiesgo": null
+    "sintomasCutanea": 0.0,
+    "sintomasAguda": 33.0,
+    "anamnesis": 15.0
   },
   "diagnostico": {
     "patientId": "P001",
-    "sintomaCutanea": "Presenta",
-    "sintomaAguda": "No_Presenta"
+    "sintomaCutanea": false,
+    "sintomaAguda": true
   },
   "ordenes": {
     "patientId": "P001",
-    "estudios": [
-      "IPP (Isómeros de Porfirinas)",
-      "PTO (Porfirinas Totales en Orina)",
-      "CRO (Coproporfirinas)",
-      "PBG (Porfobilinógeno)"
-    ]
+    "estudios": true
+  },
+  "medicamentos": {
+    "patientId": "P001",
+    "medicamentos": true
   }
 }
 ```
 
-### 5. Obtener Solo Cuadro Clínico
-```
-POST /api/porfiria/cuadro-clinico
-Content-Type: application/json
+### Esquemas
+- Diagnóstico: `{ patientId, sintomaCutanea: boolean, sintomaAguda: boolean }`
+- Órdenes: `{ patientId, estudios: boolean }`
+- Medicamentos: `{ patientId, medicamentos: boolean }`
+- Cuadro clínico: `{ patientId, sintomasCutanea: number, sintomasAguda: number, anamnesis: number }`
 
-{
-  "patientId": "P002",
-  "firstName": "Carlos",
-  "lastName": "Ruiz",
-  "dni": "87654321",
-  "age": 42,
-  "gender": "M",
-  "responses": [
-    {
-      "questionId": "parestesias",
-      "answer": "SI",
-      "patientId": "P002"
-    }
-  ]
-}
-```
-
-### 6. Obtener Solo Diagnóstico
-```
-POST /api/porfiria/diagnostico
-Content-Type: application/json
-
-{
-  "patientId": "P003",
-  "firstName": "Ana",
-  "lastName": "López",
-  "dni": "11223344",
-  "age": 28,
-  "gender": "F",
-  "responses": [
-    {
-      "questionId": "dolorAbdominalLumbar",
-      "answer": "SI",
-      "patientId": "P003"
-    }
-  ]
-}
-```
-
-### 7. Obtener Solo Órdenes de Estudios
-```
-POST /api/porfiria/ordenes
-Content-Type: application/json
-
-{
-  "patientId": "P004",
-  "firstName": "Roberto",
-  "lastName": "Silva",
-  "dni": "55667788",
-  "age": 50,
-  "gender": "M",
-  "responses": [
-    {
-      "questionId": "fotosensibilidad",
-      "answer": "SI",
-      "patientId": "P004"
-    }
-  ]
-}
-```
+### OpenAPI/Swagger
+- Archivo `openapi.yaml` en la raíz del proyecto. Importable en Swagger UI/Postman y válido para generar SDKs.
 
 ## Reglas Médicas Implementadas
 
