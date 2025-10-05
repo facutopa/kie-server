@@ -643,8 +643,35 @@ end
 // REGLAS DE DIAGNÓSTICO
 // ========================================
 
+// REGLAS ORIGINALES - COMENTADAS PARA REVISIÓN POSTERIOR
 // REG-052: Determinar sintomatología Aguda (>= 36 puntos OR anamnesis >= 12)
-rule "REG-052 - Determinar Sintomatología Aguda"
+// rule "REG-052 - Determinar Sintomatología Aguda"
+//     when
+//         $patient: Patient()
+//         $diagnostico: DiagnosticoTemprano(patientId == $patient.id)
+//         $cuadro: CuadroClinico(patientId == $patient.id, $cuadro.getSintomasAguda() >= 36 || $cuadro.getAnamnesis() >= 12)
+//     then
+//         $diagnostico.setSintomaCutanea(false);
+//         $diagnostico.setSintomaAguda(true);
+//         update($diagnostico);
+// end
+
+// REG-053: Determinar sintomatología Cutánea (>= 22 puntos OR anamnesis >= 12)
+// rule "REG-053 - Determinar Sintomatología Cutánea"
+//     when
+//         $patient: Patient()
+//         $diagnostico: DiagnosticoTemprano(patientId == $patient.id)
+//         $cuadro: CuadroClinico(patientId == $patient.id, $cuadro.getSintomasCutanea() >= 22 || $cuadro.getAnamnesis() >= 12)
+//     then
+//         $diagnostico.setSintomaCutanea(true);
+//         $diagnostico.setSintomaAguda(false);
+//         update($diagnostico);
+// end
+
+// NUEVAS REGLAS CON PRIORIDAD - MUTUAMENTE EXCLUSIVAS
+// REG-052: Determinar sintomatología Aguda (PRIORIDAD ALTA)
+rule "REG-052 - Determinar Sintomatología Aguda (Prioridad Alta)"
+    salience 100 // Prioridad alta
     when
         $patient: Patient()
         $diagnostico: DiagnosticoTemprano(patientId == $patient.id)
@@ -655,11 +682,12 @@ rule "REG-052 - Determinar Sintomatología Aguda"
         update($diagnostico);
 end
 
-// REG-053: Determinar sintomatología Cutánea (>= 22 puntos OR anamnesis >= 12)
-rule "REG-053 - Determinar Sintomatología Cutánea"
+// REG-053: Determinar sintomatología Cutánea (PRIORIDAD MEDIA - Solo si no es aguda)
+rule "REG-053 - Determinar Sintomatología Cutánea (Prioridad Media)"
+    salience 50 // Prioridad media
     when
         $patient: Patient()
-        $diagnostico: DiagnosticoTemprano(patientId == $patient.id)
+        $diagnostico: DiagnosticoTemprano(patientId == $patient.id, sintomaAguda == false) // Solo si no es aguda
         $cuadro: CuadroClinico(patientId == $patient.id, $cuadro.getSintomasCutanea() >= 22 || $cuadro.getAnamnesis() >= 12)
     then
         $diagnostico.setSintomaCutanea(true);
