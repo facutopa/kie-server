@@ -20,7 +20,7 @@ import com.example.droolsserver.model.Recommendation;
 
 // Los tipos están definidos en las clases Java, no necesitamos declararlos aquí
 
-// REG-000: Inicializar Cuadro Clínico si no existe
+// REG-000: Inicializar Cuadro Clínico y DiagnosticoTemprano
 rule "REG-000 - Inicializar Cuadro Clínico"
     when
         $patient: Patient()
@@ -32,6 +32,11 @@ rule "REG-000 - Inicializar Cuadro Clínico"
         cuadro.setSintomasAguda(0.0);
         cuadro.setAnamnesis(0.0);
         insert(cuadro);
+        DiagnosticoTemprano diagnostico = new DiagnosticoTemprano();
+        diagnostico.setPatientId($patient.getId());
+        diagnostico.setSintomaCutanea(false);
+        diagnostico.setSintomaAguda(false);
+        insert(diagnostico);
 end
 
 // ========================================
@@ -642,26 +647,24 @@ end
 rule "REG-052 - Determinar Sintomatología Aguda"
     when
         $patient: Patient()
+        $diagnostico: DiagnosticoTemprano(patientId == $patient.id)
         $cuadro: CuadroClinico(patientId == $patient.id, $cuadro.getSintomasAguda() >= 36 || $cuadro.getAnamnesis() >= 12)
     then
-        DiagnosticoTemprano diagnostico = new DiagnosticoTemprano();
-        diagnostico.setPatientId($patient.getId());
-        diagnostico.setSintomaCutanea(false);
-        diagnostico.setSintomaAguda(true);
-        insert(diagnostico);
+        $diagnostico.setSintomaCutanea(false);
+        $diagnostico.setSintomaAguda(true);
+        update($diagnostico);
 end
 
 // REG-053: Determinar sintomatología Cutánea (>= 22 puntos OR anamnesis >= 12)
 rule "REG-053 - Determinar Sintomatología Cutánea"
     when
         $patient: Patient()
+        $diagnostico: DiagnosticoTemprano(patientId == $patient.id)
         $cuadro: CuadroClinico(patientId == $patient.id, $cuadro.getSintomasCutanea() >= 22 || $cuadro.getAnamnesis() >= 12)
     then
-        DiagnosticoTemprano diagnostico = new DiagnosticoTemprano();
-        diagnostico.setPatientId($patient.getId());
-        diagnostico.setSintomaCutanea(true);
-        diagnostico.setSintomaAguda(false);
-        insert(diagnostico);
+        $diagnostico.setSintomaCutanea(true);
+        $diagnostico.setSintomaAguda(false);
+        update($diagnostico);
 end
 
 // ========================================

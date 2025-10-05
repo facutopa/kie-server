@@ -116,7 +116,26 @@
       }
     },
     {
-      "name": "6. Health Check",
+      "name": "6. Escenario Web - Cutáneo Alto + Anamnesis (log)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"patientId\": \"P006\",\n  \"firstName\": \"Alexis\",\n  \"lastName\": \"Sanchez\",\n  \"dni\": \"12345672\",\n  \"age\": 60,\n  \"gender\": \"M\",\n  \"familyHistory\": true,\n  \"alcoholConsumption\": true,\n  \"fastingStatus\": false,\n  \"responses\": [\n    { \"questionId\": \"maculas\", \"answer\": \"SI\", \"patientId\": \"P006\" },\n    { \"questionId\": \"fragilidadCutanea\", \"answer\": \"SI\", \"patientId\": \"P006\" },\n    { \"questionId\": \"hipertricosis\", \"answer\": \"SI\", \"patientId\": \"P006\" },\n    { \"questionId\": \"nodulos\", \"answer\": \"SI\", \"patientId\": \"P006\" },\n    { \"questionId\": \"lesionesOculares\", \"answer\": \"SI\", \"patientId\": \"P006\" },\n    { \"questionId\": \"costras\", \"answer\": \"SI\", \"patientId\": \"P006\" },\n    { \"questionId\": \"quistesMilia\", \"answer\": \"SI\", \"patientId\": \"P006\" },\n    { \"questionId\": \"hiperpigmentacion\", \"answer\": \"SI\", \"patientId\": \"P006\" },\n    { \"questionId\": \"ampollas\", \"answer\": \"SI\", \"patientId\": \"P006\" },\n    { \"questionId\": \"fotosensibilidad\", \"answer\": \"SI\", \"patientId\": \"P006\" },\n    { \"questionId\": \"pruritos\", \"answer\": \"SI\", \"patientId\": \"P006\" },\n    { \"questionId\": \"tricosis\", \"answer\": \"SI\", \"patientId\": \"P006\" },\n    { \"questionId\": \"colorOrina\", \"answer\": \"SI\", \"patientId\": \"P006\" },\n    { \"questionId\": \"familiares\", \"answer\": \"SI\", \"patientId\": \"P006\" },\n    { \"questionId\": \"diabetes\", \"answer\": \"SI\", \"patientId\": \"P006\" },\n    { \"questionId\": \"consumeAlcohol\", \"answer\": \"SI\", \"patientId\": \"P006\" }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/porfiria/evaluar",
+          "host": ["{{base_url}}"],
+          "path": ["api", "porfiria", "evaluar"]
+        },
+        "description": "Escenario del log: síntomas cutáneos altos, aguda NO, anamnesis alta. Esperado: diagnostico.sintomaCutanea=true, diagnostico.sintomaAguda=false, ordenes.estudios=true, medicamentos.medicamentos=true (puede activarse por transición de regla aguda)."
+      }
+    },
+    {
+      "name": "7. Health Check",
       "request": {
         "method": "GET",
         "header": [],
