@@ -643,8 +643,8 @@ end
 // REGLAS DE DIAGNÓSTICO
 // ========================================
 
-// REG-052: Determinar sintomatología Aguda
-rule "REG-052 - Determinar Sintomatología Aguda "
+// REG-050: Determinar sintomatología Aguda
+rule "REG-050 - Determinar Sintomatología Aguda "
     when
         $patient: Patient()
         $diagnostico: DiagnosticoTemprano(patientId == $patient.id)
@@ -655,8 +655,8 @@ rule "REG-052 - Determinar Sintomatología Aguda "
         update($diagnostico);
 end
 
-// REG-053: Determinar sintomatología Cutánea
-rule "REG-053 - Determinar Sintomatología Cutánea"
+// REG-051: Determinar sintomatología Cutánea
+rule "REG-051 - Determinar Sintomatología Cutánea"
     when
         $patient: Patient()
         $diagnostico: DiagnosticoTemprano(patientId == $patient.id) 
@@ -671,8 +671,8 @@ end
 // REGLAS DE ORDENES DE ESTUDIOS
 // ========================================
 
-// REG-054: Ordenar estudios
-rule "REG-054 - Ordenar Estudios"
+// REG-052: Ordenar estudios
+rule "REG-052 - Ordenar Estudios"
     when
         $patient: Patient()
         $diagnostico: DiagnosticoTemprano(patientId == $patient.id, sintomaAguda == true || sintomaCutanea == true)
@@ -689,8 +689,8 @@ end
 // REGLAS DE MEDICAMENTOS CONTRAPRODUCENTES
 // ========================================
 
-// REG-055: Informar Medicamentos Contraproducentes
-rule "REG-056 - Informar Medicamentos Contraproducentes"
+// REG-053: Informar Medicamentos Contraproducentes
+rule "REG-053 - Informar Medicamentos Contraproducentes"
     when
         $patient: Patient()
         $diagnostico: DiagnosticoTemprano(patientId == $patient.id, sintomaAguda == true)
