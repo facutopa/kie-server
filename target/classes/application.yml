@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: ${PORT:8080}
   servlet:
     context-path: /
 
@@ -30,9 +30,9 @@ spring:
 # Configuración de logging
 logging:
   level:
-    com.example.droolsserver: DEBUG
-    org.drools: INFO
-    org.kie: INFO
+    com.example.droolsserver: INFO
+    org.drools: WARN
+    org.kie: WARN
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
 
