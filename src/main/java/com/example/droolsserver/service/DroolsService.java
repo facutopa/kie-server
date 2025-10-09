@@ -74,8 +74,7 @@ public class DroolsService {
                 if (obj instanceof CuadroClinico || 
                     obj instanceof DiagnosticoTemprano || 
                     obj instanceof GenerarOrden || 
-                    obj instanceof InformarWeb ||
-                    obj instanceof Recommendation) {
+                    obj instanceof InformarWeb) {
                     resultados.add(obj);
                 }
             });

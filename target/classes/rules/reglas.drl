@@ -16,7 +16,6 @@ import com.example.droolsserver.model.CuadroClinico;
 import com.example.droolsserver.model.DiagnosticoTemprano;
 import com.example.droolsserver.model.GenerarOrden;
 import com.example.droolsserver.model.InformarWeb;
-import com.example.droolsserver.model.Recommendation;
 
 // Los tipos están definidos en las clases Java, no necesitamos declararlos aquí
 
